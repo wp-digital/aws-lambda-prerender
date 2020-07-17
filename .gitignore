@@ -1,0 +1,11 @@
+# package directories
+node_modules
+
+# Serverless directories
+.serverless
+
+# Idea
+.idea
+
+# macOS
+.DS_Store

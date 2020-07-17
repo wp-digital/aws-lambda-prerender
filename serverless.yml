@@ -1,0 +1,16 @@
+service: prerender
+provider:
+  name: aws
+  profile: default
+  runtime: nodejs12.x
+  memorySize: 2048
+
+plugins:
+  - serverless-offline
+
+functions:
+  render:
+    name: wordpress-prerender
+    handler: handler.render
+    memorySize: 2048
+    timeout: 30
