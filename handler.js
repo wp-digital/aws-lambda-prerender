@@ -6,7 +6,8 @@ module.exports.render = async ({
   post_id,
   post_url,
   return_url,
-  secret
+  secret,
+  element
 }, context, callback) => {
 
   let response = null;
@@ -21,7 +22,7 @@ module.exports.render = async ({
 
     const page = await browser.newPage();
     await page.goto(post_url, {waitUntil: 'networkidle0'});
-    const content = await page.evaluate(() => document.getElementById("app").innerHTML);
+    const content = await page.evaluate(() => document.querySelector(element).innerHTML);
     await browser.close();
 
     const body = new FormData();
