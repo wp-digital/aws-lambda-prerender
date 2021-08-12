@@ -1,6 +1,7 @@
-const puppeteer = require('puppeteer-core');
-const chromium = require('chrome-aws-lambda');
-const FormData = require('form-data');
+const chromium = require('chrome-aws-lambda')
+const fetch = require('node-fetch')
+const FormData = require('form-data')
+const puppeteer = require('puppeteer-core')
 
 module.exports.render = async ({
   post_id,
@@ -10,7 +11,7 @@ module.exports.render = async ({
   element
 }, context, callback) => {
 
-  let response = null;
+  let response = null
 
   try {
     const browser = await puppeteer.launch({
@@ -18,27 +19,30 @@ module.exports.render = async ({
       defaultViewport: chromium.defaultViewport,
       executablePath: await chromium.executablePath,
       headless: chromium.headless,
-    });
+    })
 
-    const page = await browser.newPage();
-    await page.goto(post_url, {waitUntil: 'networkidle0'});
-    const content = await page.evaluate(() => document.querySelector(element).innerHTML);
-    await browser.close();
+    const page = await browser.newPage()
+    await page.goto(post_url, {waitUntil: 'networkidle0'})
+    const content = await page.evaluate(
+      (el) => document.querySelector(el).innerHTML,
+      element
+    )
+    await browser.close()
 
-    const body = new FormData();
-    body.append('post_id', post_id);
+    const body = new FormData()
+    body.append('post_id', post_id)
     body.append('content', JSON.stringify({
       content,
-    }));
-    body.append('secret', secret);
+    }))
+    body.append('secret', secret)
 
     response = fetch(return_url, {
       method: 'POST',
       body
     })
   } catch (error) {
-    return callback(error);
+    return callback(error)
   }
 
-  return callback(null, response);
+  return callback(null, response)
 };
