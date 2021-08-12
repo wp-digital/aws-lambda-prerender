@@ -31,7 +31,7 @@ module.exports.render = async ({
 
     const body = new FormData()
     body.append('post_id', post_id)
-    body.append('content', JSON.stringify(content))
+    body.append('content', content)
     body.append('secret', secret)
 
     response = fetch(return_url, {
