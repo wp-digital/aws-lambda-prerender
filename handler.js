@@ -4,8 +4,9 @@ const FormData = require('form-data')
 const puppeteer = require('puppeteer-core')
 
 module.exports.render = async ({
-  post_id,
-  post_url,
+  type,
+  id,
+  url,
   return_url,
   secret,
   element
@@ -22,7 +23,7 @@ module.exports.render = async ({
     })
 
     const page = await browser.newPage()
-    await page.goto(post_url, {waitUntil: 'networkidle0'})
+    await page.goto(url, {waitUntil: 'networkidle0'})
     const content = await page.evaluate(
       (el) => document.querySelector(el).innerHTML,
       element
@@ -30,7 +31,8 @@ module.exports.render = async ({
     await browser.close()
 
     const body = new FormData()
-    body.append('post_id', post_id)
+    body.append('type', type)
+    body.append('id', id)
     body.append('content', content)
     body.append('secret', secret)
 
