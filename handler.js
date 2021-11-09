@@ -24,7 +24,7 @@ module.exports.render = async ({
 
     const page = await browser.newPage()
     await page.goto(url, {waitUntil: 'networkidle0'})
-    const content = await page.evaluate(
+    const html = await page.evaluate(
       (el) => document.querySelector(el).innerHTML,
       element
     )
@@ -33,7 +33,7 @@ module.exports.render = async ({
     const body = new FormData()
     body.append('type', type)
     body.append('id', id)
-    body.append('content', content)
+    body.append('html', html)
     body.append('secret', secret)
 
     response = fetch(return_url, {
