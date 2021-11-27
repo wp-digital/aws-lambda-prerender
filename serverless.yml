@@ -1,16 +1,20 @@
 service: prerender
+
+frameworkVersion: '2'
+
 provider:
   name: aws
-  profile: default
   runtime: nodejs12.x
-  memorySize: 2048
+  lambdaHashingVersion: 20201221
 
-plugins:
-  - serverless-offline
+package:
+  exclude:
+    - README.md
+    - .github/**
+    - .idea/**
 
 functions:
   render:
-    name: wordpress-prerender
     handler: handler.render
+    timeout: 59
     memorySize: 2048
-    timeout: 30

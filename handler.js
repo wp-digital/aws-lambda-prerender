@@ -1,48 +1,60 @@
-const chromium = require('chrome-aws-lambda')
-const fetch = require('node-fetch')
-const FormData = require('form-data')
 const puppeteer = require('puppeteer-core')
+const chromium = require('chrome-aws-lambda')
+const FormData = require('form-data')
+const fetch = require('node-fetch')
 
 module.exports.render = async ({
   type,
   id,
   url,
-  return_url,
+  selector,
+  return_url: returnURL,
   secret,
-  element
-}, context, callback) => {
+}) => {
+  const browser = await puppeteer.launch({
+    args: chromium.args,
+    defaultViewport: chromium.defaultViewport,
+    executablePath: await chromium.executablePath,
+    headless: chromium.headless,
+  });
+  const page = await browser.newPage();
 
-  let response = null
+  await page.goto(url, {
+    waitUntil: 'networkidle0',
+  });
 
-  try {
-    const browser = await puppeteer.launch({
-      args: chromium.args,
-      defaultViewport: chromium.defaultViewport,
-      executablePath: await chromium.executablePath,
-      headless: chromium.headless,
-    })
+  const elementHandle = await page.$(selector);
+  const html = await page.evaluate((el) => el.innerHTML, elementHandle);
 
-    const page = await browser.newPage()
-    await page.goto(url, {waitUntil: 'networkidle0'})
-    const html = await page.evaluate(
-      (el) => document.querySelector(el).innerHTML,
-      element
-    )
-    await browser.close()
+  await elementHandle.dispose();
+  await browser.close();
 
-    const body = new FormData()
-    body.append('type', type)
-    body.append('id', id)
-    body.append('html', html)
-    body.append('secret', secret)
+  const body = new FormData();
+  const data = {
+    type,
+    id,
+    html,
+    secret,
+  };
 
-    response = fetch(return_url, {
-      method: 'POST',
-      body
-    })
-  } catch (error) {
-    return callback(error)
+  Object.keys(data)
+      .forEach(key => body.append(key, data[key]));
+
+  const response = await fetch(returnURL, {
+    method: 'POST',
+    body,
+    insecureHTTPParser: true,
+  });
+
+  if (!response.ok) {
+    throw new Error(response.statusText);
   }
 
-  return callback(null, response)
+  const contentType = response.headers.get('content-type');
+
+  if (!contentType || !contentType.includes('application/json')) {
+    return response.status;
+  }
+
+  return response.json();
 };

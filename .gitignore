@@ -1,11 +1,23 @@
 # package directories
 node_modules
+jspm_packages
 
 # Serverless directories
 .serverless
 
-# Idea
-.idea
+# dotenv environment variables file
+.env
+
+# Logs
+logs
+*.log
+
+# Cache
+.cache
 
 # macOS
 .DS_Store
+
+# IDE
+.idea
+.vscode
