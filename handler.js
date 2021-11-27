@@ -36,7 +36,6 @@ module.exports.render = async ({
     html,
     secret,
   };
-  console.log(data);
 
   Object.keys(data)
       .forEach(key => body.append(key, data[key]));
