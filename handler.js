@@ -19,9 +19,14 @@ module.exports.render = async ({
   });
   const page = await browser.newPage();
 
-  await page.goto(url, {
-    waitUntil: 'networkidle0',
-  });
+  try {
+    await page.goto(url, {
+      waitUntil: 'networkidle0',
+    });
+    await page.waitForSelector(selector);
+  } catch (err) {
+    throw new Error('page.goto/waitForSelector timed out.');
+  }
 
   const elementHandle = await page.$(selector);
   const html = await page.evaluate((el) => el.innerHTML, elementHandle);
@@ -40,13 +45,11 @@ module.exports.render = async ({
   Object.keys(data)
       .forEach(key => body.append(key, data[key]));
 
-  console.log(data);
   const response = await fetch(returnURL, {
     method: 'POST',
     body,
     insecureHTTPParser: true,
   });
-  console.log(response);
 
   if (!response.ok) {
     throw new Error(response.statusText);
