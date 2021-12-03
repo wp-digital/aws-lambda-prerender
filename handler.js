@@ -40,11 +40,13 @@ module.exports.render = async ({
   Object.keys(data)
       .forEach(key => body.append(key, data[key]));
 
+  console.log(data);
   const response = await fetch(returnURL, {
     method: 'POST',
     body,
     insecureHTTPParser: true,
   });
+  console.log(response);
 
   if (!response.ok) {
     throw new Error(response.statusText);
