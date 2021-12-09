@@ -1,7 +1,7 @@
 {
   "name": "aws-lambda-prerender",
-  "version": "0.2.0",
-  "description": "Simple site prerender with AWS Lambda.",
+  "version": "1.0.0",
+  "description": "AWS Lambda function for generating HTML for client-side rendered content.",
   "main": "handler.js",
   "repository": {
     "type": "git",
