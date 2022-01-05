@@ -11,14 +11,6 @@ module.exports.render = async ({
   return_url: returnURL,
   secret,
 }) => {
-  console.log(
-      type,
-      id,
-      url,
-      selector,
-      returnURL,
-      secret
-  );
   const browser = await puppeteer.launch({
     args: chromium.args,
     defaultViewport: chromium.defaultViewport,
@@ -53,8 +45,6 @@ module.exports.render = async ({
   Object.keys(data)
       .forEach(key => body.append(key, data[key]));
 
-  console.log(data);
-  console.log(body);
   const response = await fetch(returnURL, {
     method: 'POST',
     body,
