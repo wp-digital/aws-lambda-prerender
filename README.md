@@ -21,6 +21,7 @@ Event JSON:
 | selector | `string` | Selector of root element to grab.            |
 | return_url | `string` | Endpoint where result should be returned.    |
 | secret | `string` | Secret to be added to POST callback request. |
+| version | `string` | Version of HTML.                             |
 
 #### Notes
 
@@ -37,7 +38,8 @@ Example:
   "url": "https://www.site.com/blog/hello-world/",
   "selector": "#app",
   "return_url": "https://site.com/api/v1/prerender",
-  "secret": "aQ3qnPPnDwhaB7pzI3Y0jQx*"
+  "secret": "aQ3qnPPnDwhaB7pzI3Y0jQx*",
+  "version": "381d3e8bfd139596baf7959fb85b084e"
 }
 ````
 

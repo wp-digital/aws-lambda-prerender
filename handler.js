@@ -10,6 +10,7 @@ module.exports.render = async ({
   selector,
   return_url: returnURL,
   secret,
+  version,
 }) => {
   const browser = await puppeteer.launch({
     args: chromium.args,
@@ -40,6 +41,7 @@ module.exports.render = async ({
     id,
     html,
     secret,
+    version,
   };
 
   Object.keys(data)
