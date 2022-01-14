@@ -44,6 +44,7 @@ module.exports.render = async ({
     version,
   };
 
+  console.log(data);
   Object.keys(data)
       .forEach(key => body.append(key, data[key]));
 
