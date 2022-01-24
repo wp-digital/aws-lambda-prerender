@@ -27,7 +27,7 @@ Event JSON:
 
 - Secret is for authorization. In WordPress plugin this secret has 20 minutes live time
   ([15 minutes](https://aws.amazon.com/ru/about-aws/whats-new/2018/10/aws-lambda-supports-functions-that-can-run-up-to-15-minutes/#:~:text=You%20can%20now%20configure%20your,Lambda%20function%20was%205%20minutes.)
-  is a maximum execution time of AWS Lambda function and plus 5 minutes of reserve).
+  is a maximum execution time of AWS Lambda function and 5 minutes of reserve).
 
 Example:
 
