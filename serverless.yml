@@ -1,6 +1,6 @@
 service: prerender
 
-frameworkVersion: '3'
+frameworkVersion: '2'
 
 provider:
   name: aws
