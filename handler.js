@@ -8,6 +8,7 @@ module.exports.render = async ({
   id,
   url,
   selector,
+  variable,
   return_url: returnURL,
   secret,
   version,
@@ -29,10 +30,17 @@ module.exports.render = async ({
     throw new Error('page.goto/waitForSelector timed out.');
   }
 
+  const variableHandle = await page.evaluateHandle(variable);
+
+  console.log(variableHandle);
+
+  await variableHandle.dispose();
+
   const elementHandle = await page.$(selector);
   const html = await page.evaluate((el) => el.innerHTML, elementHandle);
 
   await elementHandle.dispose();
+
   await browser.close();
 
   const body = new FormData();
