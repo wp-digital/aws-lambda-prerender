@@ -1,7 +1,7 @@
-import puppeteer from 'puppeteer-core';
-import chromium from 'chrome-aws-lambda';
-import FormData from 'form-data';
-import fetch from 'node-fetch';
+const puppeteer = require('puppeteer-core')
+const chromium = require('chrome-aws-lambda')
+const FormData = require('form-data')
+const fetch = require('node-fetch')
 
 module.exports.render = async ({
   type,
