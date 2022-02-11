@@ -1,5 +1,6 @@
 {
   "name": "aws-lambda-prerender",
+  "type": "module",
   "version": "1.0.0",
   "description": "AWS Lambda function for generating HTML for client-side rendered content.",
   "main": "handler.js",
