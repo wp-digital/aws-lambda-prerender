@@ -1,7 +1,7 @@
-const puppeteer = require('puppeteer-core')
-const chromium = require('chrome-aws-lambda')
-const FormData = require('form-data')
-const fetch = require('node-fetch')
+const puppeteer = require('puppeteer-core');
+const chromium = require('chrome-aws-lambda');
+const FormData = require('form-data');
+const fetch = require('node-fetch');
 
 module.exports.render = async ({
   type,
@@ -30,7 +30,7 @@ module.exports.render = async ({
     throw new Error('page.goto/waitForSelector timed out.');
   }
 
-  let html = '';
+  let html;
 
   try {
     const handle = await page.evaluateHandle(variable);
@@ -58,7 +58,11 @@ module.exports.render = async ({
   };
 
   Object.keys(data)
-      .forEach(key => body.append(key, data[key]));
+      .forEach(key => {
+        try {
+          body.append(key, data[key]);
+        } catch {}
+      });
 
   const response = await fetch(returnURL, {
     method: 'POST',

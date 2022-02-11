@@ -20,5 +20,7 @@
     "node-fetch": "^2.6.0",
     "puppeteer-core": "^10.4.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "puppeteer": "^13.3.1"
+  }
 }
