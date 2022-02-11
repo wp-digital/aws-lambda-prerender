@@ -34,10 +34,8 @@ module.exports.render = async ({
 
   try {
     const handle = await page.evaluateHandle(variable);
-    const value = await handle.jsonValue();
 
-    console.log(handle.toString());
-    console.log(value);
+    html = await handle.jsonValue();
 
     await handle.dispose();
   } catch {
