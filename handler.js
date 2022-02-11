@@ -30,18 +30,23 @@ module.exports.render = async ({
     throw new Error('page.goto/waitForSelector timed out.');
   }
 
+  let html = '';
+
   try {
-    const variableHandle = await page.evaluateHandle(variable);
+    const handle = await page.evaluateHandle(variable);
+    const value = await handle.jsonValue();
 
-    console.log(variableHandle.toString(), variableHandle.jsonValue());
+    console.log(handle.toString());
+    console.log(value);
 
-    await variableHandle.dispose();
-  } catch {}
+    await handle.dispose();
+  } catch {
+    const handle = await page.$(selector);
 
-  const elementHandle = await page.$(selector);
-  const html = await page.evaluate((el) => el.innerHTML, elementHandle);
+    html = await page.evaluate((el) => el.innerHTML, handle);
 
-  await elementHandle.dispose();
+    await handle.dispose();
+  }
 
   await browser.close();
 
