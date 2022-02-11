@@ -7,8 +7,8 @@ module.exports.render = async ({
   type,
   id,
   url,
-  selector,
   variable,
+  selector,
   return_url: returnURL,
   secret,
   version,
@@ -56,8 +56,6 @@ module.exports.render = async ({
     secret,
     version,
   };
-
-  console.log(data);
 
   Object.keys(data)
       .forEach(key => body.append(key, data[key]));

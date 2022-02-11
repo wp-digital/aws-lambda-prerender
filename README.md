@@ -13,18 +13,21 @@ so you just need to install plugin.
 
 Event JSON:
 
-| **Name** | **Type** | **Description**                              |
-|----------|----------|----------------------------------------------|
-| type | `string` | Type of content, e.g. `post` or `frontpage`  |
-| id | `string`  | Identifier, e.g. ID of Post from database.   |
-| url | `string` | URL for grabbing HTML.                       |
-| selector | `string` | Selector of root element to grab.            |
-| return_url | `string` | Endpoint where result should be returned.    |
-| secret | `string` | Secret to be added to POST callback request. |
-| version | `string` | Version of HTML.                             |
+| **Name** | **Type** | **Description**                                                                                                  |
+|----------|----------|------------------------------------------------------------------------------------------------------------------|
+| type | `string` | Type of content, e.g. `post` or `frontpage`                                                                      |
+| id | `string`  | Identifier, e.g. ID of Post from database.                                                                       |
+| url | `string` | URL for grabbing HTML.                                                                                           |
+| variable | `string` | Name of global variable with rendered HTML to string.                                                          |
+| selector | `string` | Selector of root element to grab. Not used for grabbing when `variable` set but always in use to detect page load. |
+| return_url | `string` | Endpoint where result should be returned.                                                                        |
+| secret | `string` | Secret to be added to POST callback request.                                                                     |
+| version | `string` | Version of HTML.                                                                                                 |
 
 #### Notes
 
+- Idea of `variable` is to use e.g. [renderToString](https://reactjs.org/docs/react-dom-server.html#rendertostring) from
+  React to render HTML otherwise element's HTML with `selector` will be used.
 - Secret is for authorization. In WordPress plugin this secret has 20 minutes live time
   ([15 minutes](https://aws.amazon.com/ru/about-aws/whats-new/2018/10/aws-lambda-supports-functions-that-can-run-up-to-15-minutes/#:~:text=You%20can%20now%20configure%20your,Lambda%20function%20was%205%20minutes.)
   is a maximum execution time of AWS Lambda function and 5 minutes of reserve).
@@ -36,6 +39,7 @@ Example:
   "type": "post",
   "id": 345,
   "url": "https://www.site.com/blog/hello-world/",
+  "variable": "prerender",
   "selector": "#app",
   "return_url": "https://site.com/api/v1/prerender",
   "secret": "aQ3qnPPnDwhaB7pzI3Y0jQx*",
