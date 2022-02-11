@@ -30,11 +30,13 @@ module.exports.render = async ({
     throw new Error('page.goto/waitForSelector timed out.');
   }
 
-  const variableHandle = await page.evaluateHandle(variable);
+  try {
+    const variableHandle = await page.evaluateHandle(variable);
 
-  console.log(variableHandle);
+    console.log(variableHandle.toString(), variableHandle.jsonValue());
 
-  await variableHandle.dispose();
+    await variableHandle.dispose();
+  } catch {}
 
   const elementHandle = await page.$(selector);
   const html = await page.evaluate((el) => el.innerHTML, elementHandle);
