@@ -1,6 +1,6 @@
 {
   "name": "aws-lambda-prerender",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "AWS Lambda function for generating HTML for client-side rendered content.",
   "main": "handler.js",
   "repository": {
@@ -17,8 +17,8 @@
   "dependencies": {
     "chrome-aws-lambda": "^10.1.0",
     "form-data": "^4.0.0",
-    "node-fetch": "^2.6.0",
-    "puppeteer-core": "^10.4.0"
+    "node-fetch": "^3.2.10",
+    "puppeteer-core": "^18.2.1"
   },
   "devDependencies": {}
 }
