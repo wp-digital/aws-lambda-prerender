@@ -71,6 +71,7 @@ module.exports.render = async ({
   });
 
   if (!response.ok) {
+    console.log(response);
     throw new Error(`${response.statusText}: ${JSON.stringify(data)}`);
   }
 
