@@ -71,9 +71,7 @@ module.exports.render = async ({
   });
 
   if (!response.ok) {
-    const error = await response.json();
-    console.log(error);
-    throw new Error(`${response.statusText}: ${JSON.stringify(data)}`);
+    throw new Error(response.statusText);
   }
 
   const contentType = response.headers.get('content-type');
