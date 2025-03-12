@@ -16,7 +16,7 @@
   "homepage": "https://github.com/innocode-digital/aws-lambda-prerender#readme",
   "dependencies": {
     "chrome-aws-lambda": "^10.1.0",
-    "form-data": "^4.0.1",
+    "form-data": "^4.0.2",
     "node-fetch": "^2.7.0",
     "puppeteer-core": "^10.4.0"
   },
